@@ -1,6 +1,7 @@
 
 
 **Installation**
+
 1. Create your own free Stamplay app at [http://stamplay.com]
 2. Clone this repo
 3. Initialize your Stamplay app: `stamplay init`
@@ -9,6 +10,5 @@
 5. View your app online at {appname}.stamplayapp.com
 
 **Additional Setup**
-If you would like to add fb login, please insert your own keys :)
 
-Inspired by the tutorial from  (https://scotch.io/tutorials/build-an-etsy-clone-with-angular-and-stamplay-part-1)
+If you would like to add fb login, please insert your own keys :)
