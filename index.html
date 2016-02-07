@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Zesty Stamplay</title>
+
+	<!-- required by ui-router -->
+	<base href="/">
+
+	<!-- CSS -->
+	<!-- load up bootswatch-darkly and our custom styles -->
+	<link rel="stylesheet" href="./bower_components/bootswatch/darkly/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
+	<!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" /> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="./animate.css">
+	<link rel="stylesheet" href="./style.css">
+
+	<!-- JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet-src.js"></script>
+
+	<!-- load the stamplay sdk and configure it -->
+	<script src="./bower_components/stamplay-js-sdk/dist/stamplay.min.js"></script>
+	<script>
+		Stamplay.init('zest'); 	// initiate stamplay app with app name
+	</script>
+
+	<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+	<script>
+	  Stripe.setPublishableKey('pk_test_SkHlIY2yuT7kdarpAKLkhXRY');
+	</script>
+
+	<!-- load our other JS dependencies -->
+	<script src="./bower_components/angular/angular.min.js"></script>
+	<script src="./bower_components/angular-stamplay/angular-stamplay.js"></script>
+	<script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="./bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+	<script src="./bower_components/algoliasearch/dist/algoliasearch.angular.js"></script>
+	<script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+	<!-- load all the parts for our custom angular app -->
+	<!-- youd probably want to compile all this with a build system like gulp -->
+	<!-- load our angular components -->
+	<script src="./app/components/home/home.js"></script>
+	<script src="./app/components/shop/shop.js"></script>
+	<script src="./app/components/product/product.js"></script>
+	<script src="./app/components/checkout/checkout.js"></script>
+	<script src="./app/components/profile/profile.js"></script>
+	<script src="./app/components/admin/admin.js"></script>
+	<script src="./app/components/authenticate/authenticate.js"></script>
+
+	<!-- load our angular services -->
+	<script src="./app/shared/ProductService.js"></script>
+	<script src="./app/shared/UserService.js"></script>
+	<script src="./app/shared/OrderService.js"></script>
+	<script src="./app/shared/ShopService.js"></script>
+
+	<!-- load our core angular app -->
+	<script src="./app/app.routes.js"></script>
+	<script src="./app/app.js"></script>
+
+</head>
+<body ng-app="zestApp" ng-controller="MainController as main">
+
+	<!-- HEADER AND NAV -->
+	<header>
+		<nav id="main-nav" class="navbar">
+		<div class="container">
+
+			<!-- site logo -->
+	<div class="animated slideInLeft">
+		<div class="navbar-header">
+
+			<a ui-sref="home" class="navbar-brand">
+				Zest
+			</a>
+		</div>
+
+
+			<!-- search form -->
+			<form class="search-form navbar-form navbar-left" ng-show="currentUser.id">
+				<div class="form-group">
+				<div class="input-group">
+					<input
+						type="text"
+						class="form-control"
+						ng-model="main.query"
+						placeholder="What do you want to eat?"
+						typeahead="product as product.name for product in main.searchProducts($viewValue)"
+						typeahead-on-select="main.searchPicked($item, $model, $label)">
+				    <div class="input-group-addon">
+				    	<span class="glyphicon glyphicon-search"></span>
+				    </div>
+				</div>
+				</div>
+			</form>
+
+			<!-- logged in navigation -->
+			<!-- todo: check for logged in user -->
+			<!-- We use ui-srefs because we are using uirouter -->
+			<!-- currentUser.id refers to if a user is not logged in using stamplay -->
+			<ul class="nav navbar-nav navbar-right" ng-show="currentUser.id">
+				<li><a ui-sref="admin">Admin</a></li>
+				<li><a ui-sref="profile">Profile</a></li>
+				<li><a ng-click="main.logout()">Logout</a></li>
+			</ul>
+
+			<!-- not logged in navigation -->
+			<!-- currentUser.id refers to if a user is not logged in using stamplay -->
+	        <ul class="nav navbar-nav navbar-right" ng-show="!currentUser.id">
+	            <li><a ui-sref="authenticate">Sign-Up</a></li>	
+	        </ul>
+		</div>
+		</nav>
+	</div>
+	</header>
+
+
+	<!-- ui-router will inject our component views here -->
+	<main class="container">
+		<div ui-view></div>
+	</main>
+
+
+	<!-- FOOTER -->
+
+	<footer class="text-center">
+		&copy; 2016 Zest | Made with <span class="glyphicon glyphicon-heart" style="color:red;"></span> in Seattle
+		<br>
+		<a ui-sref="about"> About Zest </a> &nbsp  <span class="glyphicon glyphicon-option-vertical"></span> &nbsp  <a ui-sref="team">Team</a>
+	</footer>
+
+	
+</body>
+</html>

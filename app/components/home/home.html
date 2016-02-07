@@ -1,0 +1,127 @@
+
+<div class="jumbotron" ng-show="!currentUser.id">
+
+	<div class="containerdos">
+
+		<h1 class ="animated slideInRight" style="color:#0ce3ac; margin-left:20px;">Zest</h1>
+		<br>
+		<h3 style="margin-left:20px;"> Zest helps you find great last minute offers on amazing food and drink items from your local restaurants! </h3>
+
+		<br>
+
+		<h4 style="margin-left:20px;">What are you waiting for? Join us :)</h4>
+
+		<br>
+			<div class="buttons animated rollIn">
+			<p>
+				<a class="btn btn-primary" href="https://zest.stamplayapp.com/auth/v1/facebook/connect" style="margin-left:20px;"> <i class="fa fa-facebook"></i> &nbsp facebook log-in</a> &nbsp or &nbsp <a class="btn btn-primary btn-danger" ui-sref="authenticate"><i class="fa fa-envelope-o"> &nbsp </i>log-in with e-mail</a>
+			</p>
+			</div>
+
+		<p>
+			<a class="typeform-share link" href="https://chrikeli.typeform.com/to/R5XFsx" data-mode="2" target="_blank" style="margin-left:20px; font-size:15px;">Are you representing a restaurant? Get in touch!</a>
+		    <script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
+		</p>
+
+	</div>
+
+</div>
+
+<div class="page-header text-center">
+	<h1 class = "animated slideInRight" ng-show="currentUser.id">Welcome, {{currentUser.name}}</h1>
+	<br>
+
+	<div id="map" style="width:100%; height:250px;" ng-show="currentUser.id">
+		<script>
+			var map = L.map('map',{
+				center: [47.60, -122.33],
+				zoom: 12
+			});
+			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+   			 maxZoom: 18,
+    		id: 'chrikeli.om61mm02',
+   		    accessToken: 'pk.eyJ1IjoiY2hyaWtlbGkiLCJhIjoiY2lqOHl4djA1MDAxa3VsbTR6b3N2YnludiJ9.gZA70q1qF_qCduwoaHX1_A'
+			}).addTo(map);
+
+			// Geolocation function
+			map.locate({setView: true, maxZoom: 14});
+
+			// When location is found, we drop a marker ther
+			function onLocationFound(e) {
+    			var radius = e.accuracy / 2;
+
+    			L.marker(e.latlng).addTo(map);
+
+        		// Your location is within the radius of the circle 
+        		// L.circle(e.latlng, radius).addTo(map);
+			}
+			map.on('locationfound', onLocationFound);
+
+			// Gives error if geolocation fails!
+			function onLocationError(e) {
+    			alert(e.message);
+			}
+			map.on('locationerror', onLocationError);
+
+			// Disable drag and zoom handlers.
+			map.touchZoom.disable();
+			map.scrollWheelZoom.disable();
+
+		</script>
+	</div>
+</div>
+
+	<br>
+
+	<h3 style="margin-top: 0px; text-align: center; "> Here are the active deals around you!</h3>
+
+ 	<div class="row" style="margin-top: 15px;">
+
+		<!-- loop over home.products here -->
+		<div class="col-md-3" ng-repeat="product in home.products">
+
+			<div class="product-box">
+
+				<!-- the product image -->
+				<a class="product-img"  ui-sref="product({ id: product.instance.id, name: product.instance.name })">
+					<img ng-src="{{ product.instance.pictures[0].photo }}" ng-show="product.instance.pictures">
+					<img src="https://placebear.com/g/250/170" ng-show="!product.instance.pictures">
+				</a>
+
+				<!-- the product content like title -->
+				<div class="product-content">
+
+
+						<a ui-sref="product({ id: product.instance.id, name: product.instance.name })">
+							<i class="fa fa-cutlery"></i> {{ product.instance.name }}
+						</a>
+
+						<p>
+							<i class="fa fa-map-marker"></i> {{ product.instance.restname }}
+							<br>
+							<i class="fa fa-phone"></i> {{ product.instance.restphonenumber}}
+							<br>
+							Availability : {{ product.instance.quantity}}
+							<br>
+							Was : <strike> {{ product.instance.price_before | currency}} </strike>
+						</p>
+
+						<div class="listing-price" >
+							Now : {{ product.instance.price | currency }}
+						</div>
+
+						<!-- buy now button links to checkout route -->
+						<!-- only show buy now button if logged in -->
+
+						<a ui-sref="product({ id: product.instance.id, name: product.instance.name })" class="listing-buy btn btn-success btn-sm" ng-show="currentUser.id" style="text-align:center;">View More Details!</a>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+
+
+
+

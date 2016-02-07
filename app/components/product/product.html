@@ -1,0 +1,136 @@
+<div class="listing-wrap">
+	<div class="row">
+		
+		<!-- main content (images, description, comments) -->
+		<div class="col-sm-7">
+		<div class="listing-main">
+
+			<!-- the images (show the bears if there are no images -->
+			<div class="listing-images">
+				<img 
+					ng-repeat="picture in product.pictures" 
+					ng-show="picture.photo"
+					ng-src="{{ picture.photo }}"
+					class="img-responsive">
+				<img 
+					ng-show="!product.listing.pictures"
+					src="http://placebear.com/g/600/400" 
+					class="img-responsive">
+			</div>
+
+		</div>
+		</div>
+
+		<!-- the extra content (title, price, options, add to cart) -->
+		<div class="col-sm-5">
+		<div class="listing-extra">
+			
+			<!-- the extras info -->
+			<div>
+
+				<h1>
+					<i class="fa fa-cutlery"></i> {{ product.listing.name }}
+					 <div class="price" style="text-align:right; color:#0ce3ac; font-size: 22px; font-weight: bold;">
+					<p style="font-size: 18px; color:#696969; font-weight: normal;" >
+					Was: <strike>{{ product.listing.price_before | currency }} </strike>
+					</p>
+					Price {{ product.listing.price | currency }} </div>
+				</h1>
+
+				<p>
+					Cuisine: {{ product.listing.cuisine }}
+				</p>
+				<p>
+					Availability: {{ product.listing.quantity }}
+				</p>
+				<p>
+					<i class="fa fa-map-marker"></i> {{ product.listing.restname }}<br>
+					{{ product.listing.restaddress }}
+				</p>
+				<p>
+					<i class="fa fa-phone"></i> &nbsp {{ product.listing.restphonenumber }}
+				</p>
+				<p style="text-align: center; font-size:18px; color:#333; font-style: italic;" >
+					 <i class="fa fa-info"></i> &nbsp {{ product.listing.description}}
+				</p>
+
+			</div>
+
+			<!-- buy now button links to checkout route -->
+			<!-- only show buy now button if logged in -->
+			<a ui-sref="checkout({ id: product.listing.id })" class="listing-buy btn btn-success btn-block" ng-show="currentUser.id">
+				Buy Now
+			</a>
+			<a ui-sref="authenticate" class="listing-buy btn btn-success btn-block" ng-show="!currentUser.id">
+				Login/Signup to Purchase
+			</a>
+
+			<br>
+
+				<!-- TIMER CODE -->
+
+				<h1 style="text-align: center;">Available for the next</h1>
+
+				<div id="clockdiv">
+				  <div>
+				    <span class="hours"></span>
+				    <div class="smalltext">Hours</div>
+				  </div>
+				  <div>
+				    <span class="minutes"></span>
+				    <div class="smalltext">Minutes</div>
+				  </div>
+				  <div>
+				    <span class="seconds"></span>
+				    <div class="smalltext">Seconds</div>
+				  </div>
+				</div>
+
+				<script type="text/javascript">
+					function getTimeRemaining(endtime) {
+					  var t = Date.parse(endtime) - Date.parse(new Date());
+					  var seconds = Math.floor((t / 1000) % 60);
+					  var minutes = Math.floor((t / 1000 / 60) % 60);
+					  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+					  return {
+					    'total': t,
+					    'hours': hours,
+					    'minutes': minutes,
+					    'seconds': seconds
+					  };
+					}
+
+					function initializeClock(id, endtime) {
+					  var clock = document.getElementById(id);
+					  var hoursSpan = clock.querySelector('.hours');
+					  var minutesSpan = clock.querySelector('.minutes');
+					  var secondsSpan = clock.querySelector('.seconds');
+
+					  function updateClock() {
+					    var t = getTimeRemaining(endtime);
+
+					    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+					    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+					    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+					    if (t.total <= 0) {
+					      clearInterval(timeinterval);
+					    }
+					  }
+
+					  updateClock();
+					  var timeinterval = setInterval(updateClock, 1000);
+					}
+
+					var deadline = new Date(Date.parse(new Date()) + 2 * 60 * 60 * 1000);
+					initializeClock('clockdiv', deadline);
+									</script>
+
+				<!-- END TIMER CODE -->
+
+		</div>
+		</div>
+
+	</div>
+</div>
+
