@@ -14,14 +14,14 @@
 		<br>
 			<div class="buttons animated rollIn">
 			<p>
-				<a class="btn btn-primary" href="https://zest.stamplayapp.com/auth/v1/facebook/connect" style="margin-left:20px;"> <i class="fa fa-facebook"></i> &nbsp facebook log-in</a> &nbsp or &nbsp <a class="btn btn-primary btn-danger" ui-sref="authenticate"><i class="fa fa-envelope-o"> &nbsp </i>log-in with e-mail</a>
+				<a class="btn btn-primary" ui-sref="authenticate" style="margin-left:20px;"> &nbsp Sign - Up</a>
 			</p>
 			</div>
 
-		<p>
+		<!-- <p>
 			<a class="typeform-share link" href="https://chrikeli.typeform.com/to/R5XFsx" data-mode="2" target="_blank" style="margin-left:20px; font-size:15px;">Are you representing a restaurant? Get in touch!</a>
 		    <script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
-		</p>
+		</p> -->
 
 	</div>
 
@@ -76,17 +76,16 @@
 
 	<h3 style="margin-top: 0px; text-align: center; "> Here are the active deals around you!</h3>
 
- 	<div class="row" style="margin-top: 15px;">
+ 	<div class="row" style="margin-top: 15px;" >
 
 		<!-- loop over home.products here -->
 		<div class="col-md-3" ng-repeat="product in home.products">
-
+			
 			<div class="product-box">
 
 				<!-- the product image -->
 				<a class="product-img"  ui-sref="product({ id: product.instance.id, name: product.instance.name })">
 					<img ng-src="{{ product.instance.pictures[0].photo }}" ng-show="product.instance.pictures">
-					<img src="https://placebear.com/g/250/170" ng-show="!product.instance.pictures">
 				</a>
 
 				<!-- the product content like title -->

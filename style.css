@@ -1,3 +1,7 @@
+/** {
+	outline: 1px dotted red;
+}*/
+
 /* main styles ------------------------------------------*/
 
 h1, h2, h3, h4, h5, h6 	{
@@ -72,15 +76,18 @@ a[ng-click]  { cursor:pointer; }
 	z-index: 9999;
 	width: 100%;
 	height: 100%;
+	/*outline: 1px dotted green;*/
 }
 
 .container{
 	width: 100%;
+	/*outline: 1px dotted yellow;*/
 }
 
 
 /* products ------------------------------------ */
 .product-box 	{
+	/*outline: 1px dotted white;*/
 	width: 295.5px;
 	height: 379.5;
 	margin-top: 30px;
@@ -90,6 +97,9 @@ a[ng-click]  { cursor:pointer; }
 	box-shadow:0 0 2px 0 rgba(0, 0, 0, 0.15);
 	border-radius:3px;
 	padding:8px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: auto;
 }
 
 .product-img img {
