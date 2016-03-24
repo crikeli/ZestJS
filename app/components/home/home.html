@@ -85,7 +85,7 @@
 
 				<!-- the product image -->
 				<a class="product-img"  ui-sref="product({ id: product.instance.id, name: product.instance.name })">
-					<img ng-src="{{ product.instance.pictures[0].photo }}" ng-show="product.instance.pictures">
+					<img ng-src="{{ product.instance.pictures[0].photo }}" spinkit-image-preloader='double-bounce-spinner' ng-show="product.instance.pictures">
 				</a>
 
 				<!-- the product content like title -->

@@ -9,6 +9,7 @@
 			<div class="listing-images">
 				<img 
 					ng-repeat="picture in product.pictures" 
+					spinkit-image-preloader='double-bounce-spinner'
 					ng-show="picture.photo"
 					ng-src="{{ picture.photo }}"
 					class="img-responsive">
