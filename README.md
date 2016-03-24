@@ -1,6 +1,9 @@
 
+** Active Site **
+zest.stamplayapp.com
 
-**Installation**
+
+**Installation on your machine**
 
 1. Create your own free Stamplay app at [http://stamplay.com]
 2. Clone this repo
